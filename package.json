@@ -1,0 +1,60 @@
+{
+  "name": "@meddleware/content-hub-client",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Content hub client: API route contract, data-model enumerations, state machines, the canonical post format (renderers, counters, segmentation, intent links) and the shared golden vectors. No runtime dependencies.",
+  "author": "Meddleware <dev@meddleware.co.uk>",
+  "license": "0BSD",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meddleware-org/content-hub-client.git"
+  },
+  "keywords": [
+    "content-hub",
+    "roadmap",
+    "publishing"
+  ],
+  "files": [
+    "src",
+    "dist",
+    "vectors.json",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=24"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./vectors.json": "./vectors.json"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint:js": "eslint .",
+    "lint": "npm run lint:js",
+    "check:vectors": "node scripts/check-vectors.mjs vectors.json"
+  },
+  "devDependencies": {
+    "@types/node": "~26.6.5",
+    "eslint": "^10.11.0",
+    "jiti": "^2.7.0",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.70.1",
+    "vitest": "~5.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
