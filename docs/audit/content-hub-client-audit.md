@@ -127,7 +127,7 @@ all hold (copied from the fleet workflows).
 
 ### pre-testnet
 - [x] `SECURITY.md` present
-- [ ] published with provenance — R2
+- [x] published with provenance (trusted publishing from the tag workflow) — 2026-10-30, R2
 - [x] the route tables match the built service (contract job, 6/6 with the snapshot route) and drive the deployment's
   route-exposure check — 2026-10-29, C9
 
@@ -170,3 +170,4 @@ all hold (copied from the fleet workflows).
 
 - 2026-10-25 — first pass of the C4 scaffold.
 - 2026-10-29 — C9: no change to the package; its route tables are the reference the deployment's route-exposure check reads from the service.
+- 2026-10-30 — R2: `0.0.1` published to npm from CI with a Sigstore provenance statement; the service's contract job runs against it.
