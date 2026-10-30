@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.0.1 — unreleased
+## 0.0.1 — 2026-10-30
 
 - The package's runtime entry is the compiled `dist/index.js` (built by `prepublishOnly`), so Node-side consumers (the console's
   browser tests, the service's contract job) need no TypeScript transform; `src` is still shipped for source maps.
