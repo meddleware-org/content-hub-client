@@ -13,7 +13,7 @@
 **Publish model:** ships TS source + declarations (npm)
 **Runtime targets:** browser, Node ≥ 24
 **Peer dependencies:** none
-**Deployment status:** unpublished (0.0.1 local, Series C C4)
+**Deployment status:** published on npm (0.0.1, with provenance, 2026-10-30); used by the console and the service's contract job
 **Review date:** 2026-10-25
 **Reviewer:** Internal review
 **Severity ceiling:** Low — pure data and functions, no runtime dependencies, no credentials; the server enforces everything this package describes
