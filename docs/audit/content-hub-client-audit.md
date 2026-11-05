@@ -5,8 +5,8 @@
 **Project type:** TS SDK
 **Template:**
 
-- AUDIT_TEMPLATE.md (2026-10-08)
-- AUDIT_TEMPLATE_TS.md (2026-10-08)
+- AUDIT_TEMPLATE.md (2026-11-01)
+- AUDIT_TEMPLATE_TS.md (2026-11-01)
 
 **Package manager / lockfile:** npm 11, package-lock.json committed
 **Module format:** ESM
