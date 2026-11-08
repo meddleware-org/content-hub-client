@@ -132,7 +132,7 @@ all hold (copied from the fleet workflows).
   route-exposure check — 2026-10-29, C9
 
 ### pre-mainnet
-- [ ] external review
+- [ ] external review (ADR-0009 gate G4: not a launch gate; covered by redeploy and the audit pass)
 
 ## Cross-project themes
 
