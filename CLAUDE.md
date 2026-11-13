@@ -17,6 +17,21 @@ The content hub's client-side contract. See [README.md](README.md).
 - **No operator data** (host names, channels, wording).
 - Pre-0.2: no compatibility shims; the next publication is the published version + 1 patch.
 
+## Layout and commands
+
+```text
+src/model.ts    enumerations (snake_case values as the API sends them)
+src/state.ts    task and instance state machines (previews)
+src/routes.ts   route tables, prefixes, the CSRF header
+src/text/       the text engine (a port of the service's Rust core)
+src/vectors.ts  the type of vectors.json
+vectors.json    the golden vectors (this package is their home)
+scripts/check-vectors.mjs   structural check (also usable by the service: --against)
+```
+
+`npm ci && npm run type-check && npm run lint && npm test && npm run check:vectors && npm run build`. Changing a list, a table or a
+route is coordinated with content-hub-service.
+
 ## Tests
 
 `npm test` (vitest): the vectors against the exported lists and tables, the state-machine invariants (only the worker
