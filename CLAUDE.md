@@ -37,3 +37,7 @@ route is coordinated with content-hub-service.
 `npm test` (vitest): the vectors against the exported lists and tables, the state-machine invariants (only the worker
 enters `sending`; `unknown` is left only by an operator's resolution; `posted` is terminal), the route contract.
 `npm run check:vectors` checks the file's structure.
+
+## Interoperability
+
+- [docs/INTEROP.md](docs/INTEROP.md): the standards this project speaks, what is planned, where to extend it, and what proves each claim.

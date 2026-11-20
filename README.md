@@ -39,3 +39,7 @@ the service (its copy of `vectors.json`, its CHECK lists, its route tables).
 ## Licence
 
 0BSD — see [LICENSE](LICENSE).
+
+## Open standards
+
+What this project speaks, what is planned and where you can extend it: [docs/INTEROP.md](docs/INTEROP.md).
