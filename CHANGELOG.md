@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Documentation: every file is annotated line by line and has a header; added `CONTRIBUTING.md`; README Development section; CLAUDE.md Commands, Gotchas and Related.
+- `tsconfig.build.json` carries comments. No behaviour change: the compiled output of `src/` is identical.
+
 ## 0.0.1 — 2026-10-30
 
 - The package's runtime entry is the compiled `dist/index.js` (built by `prepublishOnly`), so Node-side consumers (the console's

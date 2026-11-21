@@ -1,12 +1,18 @@
+// The build for the published package: `npm run build` runs `tsc -p tsconfig.build.json` and writes dist/ (JavaScript, declarations and source maps). Unlike the other client libraries,
+// this one ships compiled output: `exports` in package.json points `default` at dist/index.js, so a consumer needs no TypeScript transform.
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    // Turn emission back on (the base config disables it)...
     "noEmit": false,
+    // ...for declarations and JavaScript both (`emitDeclarationOnly` is false), with source maps so a stack trace points at the TypeScript.
     "declaration": true,
     "emitDeclarationOnly": false,
     "sourceMap": true,
+    // The source root and the output directory keep `dist/index.js` beside `dist/index.d.ts`, which is what `exports` names.
     "rootDir": "./src",
     "outDir": "./dist"
   },
+  // Only the source: the tests have nothing to publish.
   "include": ["src/**/*.ts"]
 }

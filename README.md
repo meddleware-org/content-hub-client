@@ -28,10 +28,20 @@ operatorMoves('unknown') // ['posted', 'failed']: an uncertain send is resolved 
 
 ## Development
 
+The package ships its TypeScript source plus a compiled build (`dist/`). The checks, all run in CI on every push (`.github/workflows/node-ci.yml`; the tests also run on Node 24, the minimum
+in `engines`):
+
 ```bash
-npm ci
-npm run type-check && npm run lint && npm test && npm run check:vectors && npm run build
+npm ci                           # install exactly the lockfile
+npm run type-check               # tsc over src/ and tests/
+npm run lint                     # eslint (typescript-eslint recommended)
+npm test                         # 129 offline unit tests, including the golden vectors the Rust service also tests against
+npm run check:vectors            # the structure of vectors.json
+npm run build                    # the compiled JavaScript, declarations and source maps in dist/
+npm audit --audit-level=high     # the dependency check
 ```
+
+How to propose a change: [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Changing an enumeration, a state machine or a route is a coordinated change: this package (published first), then
 the service (its copy of `vectors.json`, its CHECK lists, its route tables).

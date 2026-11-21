@@ -1,3 +1,6 @@
+# What git must not track: installed dependencies, build output, caches, local environment files, logs, OS and editor files.
+# (`dist/` is produced by `npm run build`; it is published to npm, not committed.)
+
 # Dependencies
 node_modules/
 
@@ -12,7 +15,7 @@ build/
 coverage/
 .vitest-cache/
 
-# Environment
+# Environment: local settings and secrets never belong in git (an example file may be committed).
 .env
 .env.*
 !.env.example

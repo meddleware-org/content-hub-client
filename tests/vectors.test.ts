@@ -1,3 +1,7 @@
+/**
+ * Tests that this package agrees with `vectors.json`: the enumerations match value for value and in order, and the state machines match the vectors' transitions. The vectors are what the
+ * Rust service is tested against too, so these checks are what keep the two from drifting.
+ */
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 
@@ -12,6 +16,7 @@ import {
 } from '../src/index.js'
 import type { Vectors } from '../src/vectors.js'
 
+/** The shared vectors, read from the repository root. */
 const vectors = JSON.parse(readFileSync(new URL('../vectors.json', import.meta.url), 'utf8')) as Vectors
 
 describe('vectors.json', () => {
@@ -29,6 +34,7 @@ describe('vectors.json', () => {
     }
   })
 
+  // Order does not matter for a set of moves, so both sides are sorted before comparing.
   it('agrees with the state machines', () => {
     const sorted = (xs: ReadonlyArray<ReadonlyArray<string>>) => xs.map((x) => x.join(' ')).sort()
     expect(sorted(vectors.task_transitions)).toEqual(sorted(TASK_TRANSITIONS))
@@ -37,6 +43,7 @@ describe('vectors.json', () => {
 })
 
 describe('state machines', () => {
+  // Two safety rules of delivery: only the worker may start a send, and an `unknown` outcome is resolved by an operator, never retried automatically (it might have been sent).
   it('only the worker enters sending, and nothing retries an unknown send', () => {
     for (const [from, to, actor] of INSTANCE_TRANSITIONS) {
       if (to === 'sending') expect([from, actor]).toEqual(['queued', 'worker'])
@@ -55,6 +62,7 @@ describe('state machines', () => {
     for (const s of INSTANCE_STATUS_VALUES) expect(operatorMoves(s)).not.toContain('sending')
   })
 
+  // A task cannot be "moved" to the status it already has, and a finished task can be reopened only into progress.
   it('has no task self-moves and allows reopening a done task only to in_progress', () => {
     for (const s of TASK_STATUS_VALUES) expect(taskMoveAllowed(s, s)).toBe(false)
     expect(TASK_STATUS_VALUES.filter((t) => taskMoveAllowed('done', t))).toEqual(['in_progress'])

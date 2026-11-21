@@ -1,6 +1,10 @@
 // The server's state machines, for UI previews only: the admin UI shows the moves the server will accept.
 // The server decides; a preview that disagrees with it is a bug caught by the shared vectors.
 
+//
+// Role: let the admin UI show only the moves the server will accept (a disabled button instead of a rejected request). The tables are data, checked against the shared vectors, so a
+// change on the server that is not mirrored here fails a test. Main exports: `TASK_TRANSITIONS`, `INSTANCE_TRANSITIONS`, `taskMoveAllowed`, `operatorMoves`. Tested in `tests/vectors.test.ts`.
+
 import type { InstanceStatus, TaskStatus } from './model.js'
 
 /** Task moves the admin API accepts (blocked also needs a reason; starting or finishing needs every
@@ -50,11 +54,14 @@ export const INSTANCE_TRANSITIONS: ReadonlyArray<readonly [InstanceStatus, Insta
   ['cancelled', 'planned', 'operator'],
 ]
 
+/** True if the admin API accepts moving a task from `from` to `to` (a reason for `blocked` and the dependency rule are the server's to check). */
 export function taskMoveAllowed(from: TaskStatus, to: TaskStatus): boolean {
+  // A linear scan: the table has thirteen rows.
   return TASK_TRANSITIONS.some(([f, t]) => f === from && t === to)
 }
 
 /** The statuses an operator can move an instance to from `from` (what the admin UI offers). */
 export function operatorMoves(from: InstanceStatus): InstanceStatus[] {
+  // Only the rows an operator may make: the worker's and the janitor's moves are automatic and are never offered as buttons.
   return INSTANCE_TRANSITIONS.filter(([f, , a]) => f === from && a === 'operator').map(([, t]) => t)
 }

@@ -32,6 +32,31 @@ scripts/check-vectors.mjs   structural check (also usable by the service: --agai
 `npm ci && npm run type-check && npm run lint && npm test && npm run check:vectors && npm run build`. Changing a list, a table or a
 route is coordinated with content-hub-service.
 
+## Commands
+
+```bash
+npm ci && npm run type-check && npm run lint && npm test && npm run build   # the core of what the `check` CI job runs
+npm run check:vectors                                                       # the structure of vectors.json (the service runs it with `--against` on its copy)
+npm audit --audit-level=high                                                # the dependency check (this repo does not use mw-audit-gate)
+```
+
+Release: bump `version`, push, tag `v<version>`; `npm-publish.yml` re-runs the checks on the tagged commit and publishes with npm trusted publishing.
+
+## Gotchas
+
+- **`vectors.json` is hand-copied between two repositories.** This package is its home; `content-hub-service` keeps a copy and checks it byte for byte (`check-vectors.mjs --against`). Change the file here
+  first, release, then update the service's copy and its CHECK lists and route tables in the same wave.
+- **This package ships compiled JavaScript** (`exports.default` is `dist/index.js`), unlike the other client libraries that ship TypeScript source: `tsconfig.build.json` emits JavaScript and source maps.
+- **Offsets in the text engine are code points**, not UTF-16 units; the Rust parser's offsets are the reference. A change to `markup.ts` needs a vector for the case.
+- **The text engine is a preview.** The service always decides; never use a count or a cut from this package as authorisation or as the final check.
+- **There is no `mw-audit-gate`.** This repository does not depend on `@meddleware/frontend-config`; CI runs `npm audit --audit-level=high`.
+
+## Related
+
+- The audit: [`docs/audit/content-hub-client-audit.md`](docs/audit/content-hub-client-audit.md).
+- How to propose a change: [`CONTRIBUTING.md`](CONTRIBUTING.md).
+- Consumer: `content-hub-ui` (exactly `0.0.1`); release it after this package. The service: `content-hub-service`, which holds the other copy of the vectors.
+
 ## Tests
 
 `npm test` (vitest): the vectors against the exported lists and tables, the state-machine invariants (only the worker

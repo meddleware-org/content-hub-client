@@ -1,9 +1,15 @@
 // The HTTP contract: which routes each process serves. The service's route tables are the same list; the
 // service's contract job runs this package against the built binary and fails on any difference.
+//
+// Role: a UI (and the service's contract test) can list exactly which routes exist and which of them change state, so a route added on one side and forgotten on the other fails a test
+// instead of a person. Main exports: `ADMIN_ROUTES`, `PUBLIC_ROUTES`, `PROBE_ROUTES`, the two prefixes and `CSRF_HEADER`. Tested in `tests/routes.test.ts`.
 
+/** The HTTP methods the API uses. */
 export type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
 
+/** One route of the API. */
 export interface Route {
+  /** The HTTP method. */
   readonly method: Method
   /** A path pattern; `{name}` is a path parameter. */
   readonly path: string
