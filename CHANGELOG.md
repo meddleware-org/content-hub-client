@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## [0.0.2] - 2026-11-27
+
 - Documentation: every file is annotated line by line and has a header; added `CONTRIBUTING.md`; README Development section; CLAUDE.md Commands, Gotchas and Related.
 - `tsconfig.build.json` carries comments. No behaviour change: the compiled output of `src/` is identical.
 
