@@ -51,6 +51,10 @@ Release: bump `version`, push, tag `v<version>`; `npm-publish.yml` re-runs the c
 - **The text engine is a preview.** The service always decides; never use a count or a cut from this package as authorisation or as the final check.
 - **There is no `mw-audit-gate`.** This repository does not depend on `@meddleware/frontend-config`; CI runs `npm audit --audit-level=high`.
 
+## Documentation rules (workspace documentation standard, D144)
+
+Every file has a header and every declaration a TSDoc comment (private declarations included); comments say why. `node scripts/check-docs.mjs --report content-hub-client` (in the workspace repository) is the gate. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Related
 
 - The audit: [`docs/audit/content-hub-client-audit.md`](docs/audit/content-hub-client-audit.md).
